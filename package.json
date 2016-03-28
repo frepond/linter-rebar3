@@ -7,7 +7,7 @@
   "repository": "https://github.com/frepond/linter-rebar3",
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">=1.4.0 <2.0.0"
   },
   "providedServices": {
     "linter": {
