@@ -43,8 +43,8 @@ module.exports =
       re = ///
           \/(.*)\/                      # 1 - Path
           (src.*\/[\w,\s-]+\.erl)       # 2 - File
-          :(\d+):                   # 3 - Line
-          [\ ](?!Warning.+)                      # 4 - Message
+          :(\d+):                       # 3 - Line
+          [\ ](((?!(Warning)).)+)       # 4 - Message
         ///g
       reResult = re.exec(toParse)
       while reResult?
@@ -67,11 +67,11 @@ module.exports =
     parseWarning = (toParse, textEditor) ->
       ret = []
       re = ///
-        \/(.*)\/                # 1 - Path
-        (src.*\/[\w,\s-]+\.erl) # 2 - File name
-        :(\d+)                  # 3 - Line
+        \/(.*)\/                  # 1 - Path
+        (src.*\/[\w,\s-]+\.erl)   # 2 - File name
+        :(\d+)                    # 3 - Line
         :\ Warning
-        :\ (.*)                 # 4 - Message
+        :\ (.*)                   # 4 - Message
         ///g
       reResult = re.exec(toParse)
       while reResult?
