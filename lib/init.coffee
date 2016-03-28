@@ -50,7 +50,7 @@ module.exports =
       while reResult?
         filePath = path.join(projectPath(textEditor), reResult[2])
 
-        if !fs.existsSync(filePath) # a rel instead of an app
+        if not fs.existsSync(filePath) # a rel instead of an app
           parts = reResult[1].split('/')
           [..., app] = parts
           filePath = path.join(projectPath(textEditor), 'apps', app, reResult[2])
@@ -77,7 +77,7 @@ module.exports =
       while reResult?
         filePath = path.join(projectPath(textEditor), reResult[2])
 
-        if !fs.existsSync(filePath) # a rel instead of an app
+        if not fs.existsSync(filePath) # a rel instead of an app
           parts = reResult[1].split('/')
           [..., app] = parts
           filePath = path.join(projectPath(textEditor), 'apps', app, reResult[2])
@@ -85,7 +85,7 @@ module.exports =
         ret.push
           type: "Warning"
           text: reResult[4]
-          filePath: projectPath(textEditor) + '/' + reResult[2]
+          filePath: filePath
           range: helpers.rangeFromLineNumber(textEditor, reResult[3] - 1)
         reResult = re.exec(toParse)
       ret
