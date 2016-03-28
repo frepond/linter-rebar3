@@ -1,6 +1,6 @@
 {
   "name": "linter-rebar3",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "linter-package": true,
   "main": "./lib/init",
   "description": "Bare Minimum Rebar3 lint package",
