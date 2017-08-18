@@ -41,25 +41,30 @@ module.exports =
     parseError = (toParse, textEditor) ->
       ret = []
       re = ///
-          \/(.*)\/                      # 1 - Path
           (src.*\/[\w,\s-]+\.erl)       # 2 - File
           :(\d+):                       # 3 - Line
           [\ ](((?!(Warning)).)+)       # 4 - Message
         ///g
       reResult = re.exec(toParse)
       while reResult?
-        filePath = path.join(projectPath(textEditor), reResult[2])
+        filePath = path.join(projectPath(textEditor), reResult[1])
 
         if not fs.existsSync(filePath) # a rel instead of an app
           parts = reResult[1].split('/')
           [..., app] = parts
-          filePath = path.join(projectPath(textEditor), 'apps', app, reResult[2])
+          filePath = path.join(projectPath(textEditor), 'apps', app, reResult[1])
 
-        ret.push
-          type: "Error"
-          text: '(' + reResult[2] + ') ' + reResult[4]
-          filePath: filePath
-          range: helpers.rangeFromLineNumber(textEditor, reResult[3] - 1)
+        if filePath.endsWith(textEditor.getFileName())
+            ret.push
+              type: "Error"
+              text: '(' + reResult[1] + ') ' + reResult[3]
+              filePath: filePath
+              range: helpers.rangeFromLineNumber(textEditor, reResult[2] - 1)
+        else
+            ret.push
+              type: "Error"
+              text: '(' + reResult[1] + ') ' + reResult[3]
+              filePath: filePath
 
         reResult = re.exec(toParse)
       ret
